@@ -10,6 +10,8 @@ OBJS		= $(patsubst %.s, $(OBJ_DIR)/%.o, $(SRCS))
 BONUS_SRCS	=
 BONUS_OBJS	= $(patsubst %.s, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
 
+TEST_SRCS	= test.c
+
 NAME		= libasm.a
 
 all: $(NAME)
@@ -17,11 +19,15 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
+test: $(OBJS)
+	gcc $(OBJS) $(TEST_SRCS) -g3 -o test
+
 bonus: $(OBJS) $(BONUS_OBJS)
 	ar rcs $(NAME) $(BONUS_OBJS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
-	$(NASM) $(NASMFLAGS) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(NASM) $(NASMFLAGS) $< -o $@
 
 clean:
 	rm -rf $(OBJS) $(BONUS_OBJS)
@@ -31,4 +37,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus test clean fclean re
+.PHONY: all bonus test clean fclean re test

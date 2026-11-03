@@ -1,0 +1,4 @@
+objs/
+libasm.a
+test
+test.c
