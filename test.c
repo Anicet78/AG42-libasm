@@ -90,17 +90,21 @@ int main(int ac, char **av) {
 
 	// * read
 	count = 0;
-	char read_dest1[10];
-	char read_dest2[10];
-	int read_fd = open("/dev/full", O_RDONLY);
-	ssize_t read_og = read(read_fd, read_dest1, 10);
-	ssize_t read_me = read(read_fd, read_dest2, 10);
-	if (strncmp(read_dest1, read_dest2, 10) == 0 && read_og == read_me)
+	char read_dest1[50];
+	char read_dest2[50];
+	int read_fd = open("/etc/ssh/ssh_host_ed25519_key.pub", O_RDONLY);
+	ssize_t read_og = read(read_fd, read_dest1, 50);
+	read_dest1[50] = 0;
+	lseek(read_fd, 0, SEEK_SET);
+	ssize_t read_me = ft_read(read_fd, read_dest2, 50);
+	read_dest2[50] = 0;
+	if (strncmp(read_dest1, read_dest2, 50) == 0 && read_og == read_me)
 		count++;
+	if (debug) printf("------------\nREAD:\nOG: %s\nME: %s\n------------\n", read_dest1, read_dest2);
 	read_fd = open("/unknown", O_WRONLY);
-	read_og = read(read_fd, read_dest1, 10);
+	read_og = read(read_fd, read_dest1, 50);
 	int read_og_errno = errno;
-	read_me = ft_read(read_fd, read_dest2, 10);
+	read_me = ft_read(read_fd, read_dest2, 50);
 	int read_me_errno = errno;
 	if (read_og == read_me && read_og_errno == read_me_errno)
 		count++;
