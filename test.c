@@ -6,12 +6,14 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <stdlib.h>
 
 extern int		ft_strlen(const char *s);
 extern char*	ft_strcpy(char *dest, const char *src);
 extern int		ft_strcmp(const char *s1, const char *s2);
 ssize_t			ft_write(int fd, const void *buf, size_t count);
 ssize_t			ft_read(int fd, void *buf, size_t count);
+char*			ft_strdup(const char *s);
 
 // * strlen
 int main(int ac, char **av) {
@@ -113,41 +115,38 @@ int main(int ac, char **av) {
 	else
 		printf("read:    Error\n");
 
+	// * strdup
+	char	strdup1[] = "salut";
+	char	*strdup_og = strdup(strdup1);
+	char	*strdup_me = ft_strdup(strdup1);
+	if (debug) printf("------------\nSTRDUP:\nOG: %s\nME: %s\n------------\n", strdup_og, strdup_me);
+	if (strcmp(strdup_og, strdup_me) == 0)
+		printf("strdup:  OK!\n");
+	else
+		printf("strdup:  Error\n");
+	free(strdup_og);
+	free(strdup_me);
+
+	// * calloc
+	/* int i = 0;
+	char	*calloc_og = calloc(5, sizeof(char));
+	char	*calloc_me = ft_calloc(5, sizeof(char));
+	printf("------------\nCALLOC:\n");
+	printf("OG: ");
+	while (i < 5)
+		printf("%d ", calloc_og[i++]);
+	printf("\n");
+	printf("ME: ");
+	i = 0;
+	while (i < 5)
+		printf("%d ", calloc_me[i++]);
+	printf("\n------------\n");
+	if (memcmp(calloc_og, calloc_me, 5) == 0)
+		printf("calloc:   OK!\n");
+	else
+		printf("calloc:   Error\n");
+	free(calloc_og);
+	free(calloc_me); */
+
 	return (0);
 }
-
-
-
-// * strdup
-/* char	strdup1[] = "salut";
-char	*strdup_og = strdup(strdup1);
-char	*strdup_me = ft_strdup(strdup1);
-printf("------------\nSTRDUP:\nOG: %s\nME: %s\n", strdup_og, strdup_me);
-printf("------------\n");
-if (strcmp(strdup_og, strdup_me) == 0)
-	printf("strdup:   OK!\n");
-else
-	printf("strdup:  Error\n");
-free(strdup_og);
-free(strdup_me); */
-
-// * calloc
-/* int i = 0;
-char	*calloc_og = calloc(5, sizeof(char));
-char	*calloc_me = ft_calloc(5, sizeof(char));
-printf("------------\nCALLOC:\n");
-printf("OG: ");
-while (i < 5)
-	printf("%d ", calloc_og[i++]);
-printf("\n");
-printf("ME: ");
-i = 0;
-while (i < 5)
-	printf("%d ", calloc_me[i++]);
-printf("\n------------\n");
-if (memcmp(calloc_og, calloc_me, 5) == 0)
-	printf("calloc:   OK!\n");
-else
-	printf("calloc:   Error\n");
-free(calloc_og);
-free(calloc_me); */
