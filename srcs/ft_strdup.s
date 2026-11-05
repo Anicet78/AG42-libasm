@@ -9,6 +9,7 @@ ft_strdup:
 	call ft_strlen
 	push rdi
 	mov rdi, rax
+	inc rdi
 	call malloc wrt ..plt
 	test rax, rax
 	jz .error

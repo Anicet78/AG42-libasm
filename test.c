@@ -2,18 +2,19 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <stdbool.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <limits.h>
 
 extern int		ft_strlen(const char *s);
 extern char*	ft_strcpy(char *dest, const char *src);
 extern int		ft_strcmp(const char *s1, const char *s2);
-ssize_t			ft_write(int fd, const void *buf, size_t count);
-ssize_t			ft_read(int fd, void *buf, size_t count);
-char*			ft_strdup(const char *s);
+extern ssize_t	ft_write(int fd, const void *buf, size_t count);
+extern ssize_t	ft_read(int fd, void *buf, size_t count);
+extern char*	ft_strdup(const char *s);
+extern void*	ft_calloc(size_t nmemb, size_t size);
 
 // * strlen
 int main(int ac, char **av) {
@@ -128,25 +129,28 @@ int main(int ac, char **av) {
 	free(strdup_me);
 
 	// * calloc
-	/* int i = 0;
+	int i = 0;
 	char	*calloc_og = calloc(5, sizeof(char));
 	char	*calloc_me = ft_calloc(5, sizeof(char));
-	printf("------------\nCALLOC:\n");
-	printf("OG: ");
-	while (i < 5)
-		printf("%d ", calloc_og[i++]);
-	printf("\n");
-	printf("ME: ");
-	i = 0;
-	while (i < 5)
-		printf("%d ", calloc_me[i++]);
-	printf("\n------------\n");
-	if (memcmp(calloc_og, calloc_me, 5) == 0)
-		printf("calloc:   OK!\n");
+	if (debug) {
+		printf("------------\nCALLOC:\n");
+		printf("OG: ");
+		while (i < 5)
+			printf("%d ", calloc_og[i++]);
+		printf("\nME: ");
+		i = 0;
+		while (i < 5)
+			printf("%d ", calloc_me[i++]);
+		printf("\n------------\n");
+	}
+	void* fail_calloc_og = calloc(LONG_MAX, sizeof(int));
+	void* fail_calloc_me = ft_calloc(LONG_MAX, sizeof(int));
+	if (memcmp(calloc_og, calloc_me, 5) == 0 && fail_calloc_og == fail_calloc_me)
+		printf("calloc:  OK!\n");
 	else
-		printf("calloc:   Error\n");
+		printf("calloc:  Error\n");
 	free(calloc_og);
-	free(calloc_me); */
+	free(calloc_me);
 
 	return (0);
 }
