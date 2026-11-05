@@ -15,11 +15,10 @@ ft_calloc:
 	test rax, rax
 	jz .error
 	pop rdi
-	mov dl, 0
 	dec rdi
 
 .zloop:
-	mov [rax + rdi], dl
+	mov byte [rax + rdi], 0
 	dec rdi
 	jns .zloop
 	ret
