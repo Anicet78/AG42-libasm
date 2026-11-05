@@ -4,7 +4,7 @@ NASMFLAGS	= -f elf64 -g -F dwarf
 SRC_DIR		= ./srcs
 OBJ_DIR		= ./objs
 
-SRCS		= ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s
+SRCS		= ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s
 OBJS		= $(patsubst %.s, $(OBJ_DIR)/%.o, $(SRCS))
 
 BONUS_SRCS	=
