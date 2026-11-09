@@ -7,7 +7,7 @@ OBJ_DIR		= ./objs
 SRCS		= ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s ft_calloc.s
 OBJS		= $(patsubst %.s, $(OBJ_DIR)/%.o, $(SRCS))
 
-BONUS_SRCS	= ft_atoi_base_bonus.s
+BONUS_SRCS	= ft_atoi_base_bonus.s ft_list_push_front_bonus.s ft_list_size_bonus.s
 BONUS_OBJS	= $(patsubst %.s, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
 
 TEST_SRCS	= test.c
