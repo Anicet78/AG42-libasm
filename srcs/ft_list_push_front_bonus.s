@@ -11,10 +11,12 @@ ft_list_push_front:
 	test rdi, rdi
 	jz .error
 	push rdi
+	push rsi
 	mov rdi, 16
 	call malloc wrt ..plt
 	test rax, rax
 	jz .error
+	pop rsi
 	pop rdi
 	mov rdx, [rdi]
 	mov [rax], rsi

@@ -1,5 +1,3 @@
-extern malloc
-
 section .text
 
 ; rdi -> t_list* begin_list
@@ -13,11 +11,9 @@ ft_list_size:
 
 .lstloop:
 	inc eax
-	mov rsi, [rdi + 8]
-	test rsi, rsi
-	jz .end
-	mov rdi, [rsi]
-	jmp .lstloop
+	mov rdi, [rdi + 8]
+	test rdi, rdi
+	jnz .lstloop
 
 .end:
 	ret

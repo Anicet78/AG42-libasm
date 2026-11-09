@@ -14,18 +14,21 @@ typedef struct s_list
 	struct s_list *next;
 } t_list;
 
-extern size_t		ft_strlen(const char *s);
-extern char*		ft_strcpy(char *dest, const char *src);
-extern int			ft_strcmp(const char *s1, const char *s2);
-extern ssize_t		ft_write(int fd, const void *buf, size_t count);
-extern ssize_t		ft_read(int fd, void *buf, size_t count);
-extern char*		ft_strdup(const char *s);
-extern void*		ft_calloc(size_t nmemb, size_t size);
+// Mandatory
+extern size_t	ft_strlen(const char *s);
+extern char*	ft_strcpy(char *dest, const char *src);
+extern int		ft_strcmp(const char *s1, const char *s2);
+extern ssize_t	ft_write(int fd, const void *buf, size_t count);
+extern ssize_t	ft_read(int fd, void *buf, size_t count);
+extern char*	ft_strdup(const char *s);
+extern void*	ft_calloc(size_t nmemb, size_t size);
+
+// Bonus
 extern int			ft_atoi_base(char *str, char *base);
 extern void			ft_list_push_front(t_list **begin_list, void *data);
 extern unsigned int	ft_list_size(t_list *begin_list);
+extern void			ft_list_sort(t_list **begin_list, int (*cmp)());
 
-// * strlen
 int main(int ac, char **av) {
 	bool debug = false;
 
@@ -33,6 +36,10 @@ int main(int ac, char **av) {
 		debug = true;
 
 	int count;
+
+	// !MANDATORY
+
+	printf("==== MANDATORY ====\n");
 
 	// * strlen
 	count = 0;
@@ -161,6 +168,10 @@ int main(int ac, char **av) {
 	free(calloc_og);
 	free(calloc_me);
 
+	// !BONUS
+
+	printf("\n======= BONUS =======\n");
+
 	// * ft_atoi_base
 	count = 0;
 	if (ft_atoi_base("2a", "0123456789abcdef") == 42)
@@ -200,9 +211,27 @@ int main(int ac, char **av) {
 	if (ft_atoi_base("b", "0123456789") == 0)
 		count++;
 	if (count == 18)
-		printf("ft_atoi_base:  OK!\n");
+		printf("atoi_base:        OK!\n");
 	else
-		printf("ft_atoi_base:  Error\n");
+		printf("atoi_base:        Error\n");
+
+	// * LIST_PUSH_FRONT
+	t_list* lst = NULL;
+	ft_list_push_front(&lst, "c");
+	ft_list_push_front(&lst, "a");
+	ft_list_push_front(&lst->next, "b");
+	if (lst && *(char *)(lst->data) == 'a'
+		&& lst->next && *(char *)(lst->next->data) == 'b'
+		&& lst->next->next && *(char *)(lst->next->next->data) == 'c')
+		printf("list_push_front:  OK!\n");
+	else
+		printf("list_push_front:  Error\n");
+
+	// * LST_SIZE
+	if (ft_list_size(NULL) == 0 && ft_list_size(lst) == 3)
+		printf("list_size:        OK!\n");
+	else
+		printf("list_size:        Error\n");
 
 	return (0);
 }
