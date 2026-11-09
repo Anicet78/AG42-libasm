@@ -233,5 +233,11 @@ int main(int ac, char **av) {
 	else
 		printf("list_size:        Error\n");
 
+	// * LST_SORT
+	if ()
+		printf("list_sort:        OK!\n");
+	else
+		printf("list_sort:        Error\n");
+
 	return (0);
 }
