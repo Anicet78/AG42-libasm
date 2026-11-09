@@ -13,7 +13,7 @@ ft_list_size:
 
 .lstloop:
 	inc eax
-	mov rsi, rdi + 8
+	mov rsi, [rdi + 8]
 	test rsi, rsi
 	jz .end
 	mov rdi, [rsi]
