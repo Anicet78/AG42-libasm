@@ -35,9 +35,9 @@ int main(int ac, char **av) {
 	if (strlen(strlen2) == ft_strlen(strlen2))
 		count++;
 	if (count == 2)
-		printf("strlen:  OK!\n");
+		printf("strlen:        OK!\n");
 	else
-		printf("strlen:  Error:%d/2\n", count);
+		printf("strlen:        Error:%d/2\n", count);
 
 	// * strcpy
 	char	strcpy_src1[] = "salut";
@@ -47,9 +47,9 @@ int main(int ac, char **av) {
 	char*	strcpy_me = ft_strcpy(strcpy_dest2, strcpy_src1);
 	if (debug) printf("------------\nSTRCPY:\nOG: %s | %p | %p\nME: %s | %p | %p\n------------\n", strcpy_dest1, strcpy_dest1, strcpy_og, strcpy_dest2, strcpy_dest2, strcpy_me);
 	if (strcmp(strcpy_dest1, strcpy_dest2) == 0 && strcpy_dest2 == strcpy_me)
-		printf("strcpy:  OK!\n");
+		printf("strcpy:        OK!\n");
 	else
-		printf("strcpy:  Error\n");
+		printf("strcpy:        Error\n");
 
 	// * strcmp
 	count = 0;
@@ -65,9 +65,9 @@ int main(int ac, char **av) {
 	if (strcmp(strcmp_src1, strcmp_src1) == ft_strcmp(strcmp_src1, strcmp_src1))
 		count++;
 	if (count == 3)
-		printf("strcmp:  OK!\n");
+		printf("strcmp:        OK!\n");
 	else
-		printf("strcmp:  Error\n");
+		printf("strcmp:        Error\n");
 
 	// * write
 	count = 0;
@@ -88,9 +88,9 @@ int main(int ac, char **av) {
 	if (write_og == write_me && write_og_errno == write_me_errno)
 		count++;
 	if (count == 2)
-		printf("write:   OK!\n");
+		printf("write:         OK!\n");
 	else
-		printf("write:   Error\n");
+		printf("write:         Error\n");
 
 	// * read
 	count = 0;
@@ -113,9 +113,9 @@ int main(int ac, char **av) {
 	if (read_og == read_me && read_og_errno == read_me_errno)
 		count++;
 	if (count == 2)
-		printf("read:    OK!\n");
+		printf("read:          OK!\n");
 	else
-		printf("read:    Error\n");
+		printf("read:          Error\n");
 
 	// * strdup
 	char	strdup1[] = "salut";
@@ -123,9 +123,9 @@ int main(int ac, char **av) {
 	char	*strdup_me = ft_strdup(strdup1);
 	if (debug) printf("------------\nSTRDUP:\nOG: %s\nME: %s\n------------\n", strdup_og, strdup_me);
 	if (strcmp(strdup_og, strdup_me) == 0)
-		printf("strdup:  OK!\n");
+		printf("strdup:        OK!\n");
 	else
-		printf("strdup:  Error\n");
+		printf("strdup:        Error\n");
 	free(strdup_og);
 	free(strdup_me);
 
@@ -147,14 +147,54 @@ int main(int ac, char **av) {
 	void* fail_calloc_og = calloc(LONG_MAX, sizeof(int));
 	void* fail_calloc_me = ft_calloc(LONG_MAX, sizeof(int));
 	if (memcmp(calloc_og, calloc_me, 5) == 0 && fail_calloc_og == fail_calloc_me)
-		printf("calloc:  OK!\n");
+		printf("calloc:        OK!\n");
 	else
-		printf("calloc:  Error\n");
+		printf("calloc:        Error\n");
 	free(calloc_og);
 	free(calloc_me);
 
 	// * ft_atoi_base
-	printf("%d\n", ft_atoi_base("", "9"));
+	count = 0;
+	if (ft_atoi_base("2a", "0123456789abcdef") == 42)
+		count++;
+	if (ft_atoi_base("2a", " 0123456789abcdef") == 0)
+		count++;
+	if (ft_atoi_base("2a", "0123456789 abcdef") == 0)
+		count++;
+	if (ft_atoi_base("2a", "0123456789abcdef ") == 0)
+		count++;
+	if (ft_atoi_base("2a", "01234567+89abcdef") == 0)
+		count++;
+	if (ft_atoi_base("2a", "0123456789abcdef-") == 0)
+		count++;
+	if (ft_atoi_base("2a", "01f23456789abcdef") == 0)
+		count++;
+	if (ft_atoi_base("2a", "\b0123456789abcdef") == 0)
+		count++;
+	if (ft_atoi_base("29", "0") == 0)
+		count++;
+	if (ft_atoi_base("29", "") == 0)
+		count++;
+	if (ft_atoi_base("2a", "0123456789") == 2)
+		count++;
+	if (ft_atoi_base("29", "0123456789") == 29)
+		count++;
+	if (ft_atoi_base("      \b    +29", "0123456789") == 29)
+		count++;
+	if (ft_atoi_base("      \b    -29", "0123456789") == -29)
+		count++;
+	if (ft_atoi_base(" -2a", "0123456789abcdef") == -42)
+		count++;
+	if (ft_atoi_base("", "0123456789") == 0)
+		count++;
+	if (ft_atoi_base("-", "0123456789") == 0)
+		count++;
+	if (ft_atoi_base("b", "0123456789") == 0)
+		count++;
+	if (count == 18)
+		printf("ft_atoi_base:  OK!\n");
+	else
+		printf("ft_atoi_base:  Error\n");
 
 	return (0);
 }
