@@ -3,7 +3,7 @@ extern malloc
 section .text
 
 ; rdi -> t_list* begin_list
-; rsi -> current ptr
+; rsi -> t_list* current ptr
 
 global ft_list_size
 ft_list_size:
@@ -13,9 +13,10 @@ ft_list_size:
 
 .lstloop:
 	inc eax
-	mov rsi, [rdi + 8]
+	mov rsi, rdi + 8
 	test rsi, rsi
 	jz .end
+	mov rdi, [rsi]
 	jmp .lstloop
 
 .end:
