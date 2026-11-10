@@ -217,24 +217,27 @@ int main(int ac, char **av) {
 
 	// * LIST_PUSH_FRONT
 	t_list* lst = NULL;
-	ft_list_push_front(&lst, "c");
 	ft_list_push_front(&lst, "a");
-	ft_list_push_front(&lst->next, "b");
-	if (lst && *(char *)(lst->data) == 'a'
-		&& lst->next && *(char *)(lst->next->data) == 'b'
-		&& lst->next->next && *(char *)(lst->next->next->data) == 'c')
+	ft_list_push_front(&lst, "b");
+	ft_list_push_front(&lst->next, "c");
+	if (lst && *(char *)(lst->data) == 'b'
+		&& lst->next && *(char *)(lst->next->data) == 'c'
+		&& lst->next->next && *(char *)(lst->next->next->data) == 'a')
 		printf("list_push_front:  OK!\n");
 	else
 		printf("list_push_front:  Error\n");
 
-	// * LST_SIZE
+	// * LIST_SIZE
 	if (ft_list_size(NULL) == 0 && ft_list_size(lst) == 3)
 		printf("list_size:        OK!\n");
 	else
 		printf("list_size:        Error\n");
 
-	// * LST_SORT
-	if ()
+	// * LIST_SORT
+	ft_list_sort(&lst, &ft_strcmp);
+	if (lst && *(char *)(lst->data) == 'a'
+		&& lst->next && *(char *)(lst->next->data) == 'b'
+		&& lst->next->next && *(char *)(lst->next->next->data) == 'c')
 		printf("list_sort:        OK!\n");
 	else
 		printf("list_sort:        Error\n");

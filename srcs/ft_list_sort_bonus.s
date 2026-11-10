@@ -29,20 +29,25 @@ ft_list_sort:
 	pop rdx
 	pop rsi
 	pop rdi
-	test rax, rax
-	jg .sort
+	test eax, eax
+	jg .sort_init
 	mov rsi, rdx
 	jmp .lstloop
 
 ; sort
 ; r8 -> t_list* current
 ; r9 -> t_list* next
+; r10 -> t_list* previous
+; r12 -> t_list* end
 .sort_init:
+	mov r10, rdi
+	push r12
+	mov r12, [rdx + 8]
 	mov r8, [rdi]
 
 .sort_next:
-	cmp r8, rdx
-	je .lstloop
+	cmp r8, r12
+	je .sort_finish
 	mov r9, [r8 + 8]
 	push rdi
 	push rsi
@@ -50,8 +55,8 @@ ft_list_sort:
 	push rcx
 	push r8
 	push r9
-	mov rdi, [r8]
-	mov rsi, [r9]
+	mov rdi, [rdx]
+	mov rsi, [r8]
 	call rcx
 	pop r9
 	pop r8
@@ -59,9 +64,32 @@ ft_list_sort:
 	pop rdx
 	pop rsi
 	pop rdi
+	test eax, eax
+	jz .sort_finish
+	jl .sort_switch
+	mov r10, r8
 	mov r8, r9
-	test rax, rax
-	jg .sort_next
+	jmp .sort_next
+
+.sort_switch:
+	mov r11, [rdx + 8]
+	mov [rdx + 8], r8
+	mov [rsi + 8], r11
+	test r10, r10
+	jz .sort_first
+	mov [r10 + 8], r9
+	mov r10, r8
+	jmp .sort_finish
+
+.sort_first:
+	mov [rdi], rdx
+	mov r10, rdx
+	jmp .sort_next
+
+.sort_finish:
+	mov rsi, rdx
+	pop r12
+	jmp .lstloop
 
 .end:
 	ret

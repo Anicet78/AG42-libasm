@@ -11,10 +11,11 @@
       "program": "${workspaceFolder}/test",
       "args": [],
       "stopAtEntry": true,
-      "cwd": "${fileDirname}",
+      "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [
           {
               "description": "Enable pretty-printing for gdb",
@@ -25,6 +26,10 @@
               "description": "Set Disassembly Flavor to Intel",
               "text": "-gdb-set disassembly-flavor intel",
               "ignoreFailures": true
+          },
+          {
+              "description": "Set assembly source directory",
+              "text": "-environment-directory /home/agruet/Documents/OuterCore/libasm"
           }
       ]
     }
