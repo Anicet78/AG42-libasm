@@ -3,7 +3,7 @@ section .text
 ; rdi -> t_list** begin_list
 ; rsi -> t_list* current
 ; rdx -> t_list* next
-; rcx -> int (*cmp)(void* data1, void* data2)
+; rcx -> int (*cmp)(void *, void *)
 
 global ft_list_sort
 ft_list_sort:
@@ -41,6 +41,7 @@ ft_list_sort:
 ; r9 -> t_list* next
 ; r10 -> t_list* previous
 ; r12 -> t_list* end
+
 .sort_init:
 	xor r10, r10
 	mov r8, [rdi]

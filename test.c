@@ -28,6 +28,17 @@ extern int			ft_atoi_base(char *str, char *base);
 extern void			ft_list_push_front(t_list **begin_list, void *data);
 extern unsigned int	ft_list_size(t_list *begin_list);
 extern void			ft_list_sort(t_list **begin_list, int (*cmp)());
+extern void			ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+
+void void_data(void *data) {
+	(void)data;
+	return ;
+}
+
+void free_data(void *data) {
+	free(data);
+	return ;
+}
 
 int main(int ac, char **av) {
 	bool debug = false;
@@ -260,6 +271,35 @@ int main(int ac, char **av) {
 		printf("list_sort:        OK!\n");
 	else
 		printf("list_sort:        Error\n");
+	free(lst2->next);
+	free(lst2);
+
+	// * LIST_REMOVE_IF
+	count = 0;
+	ft_list_remove_if(&lst, "b", &ft_strcmp, NULL);
+	if (*(char *)(lst->data) == '9'
+		&& *(char *)(lst->next->data) == 'a'
+		&& *(char *)(lst->next->next->data) == 'c'
+		&& *(char *)(lst->next->next->next->data) == 'x')
+		count++;
+	ft_list_remove_if(NULL, "", &ft_strcmp, &void_data);
+	ft_list_remove_if(&lst, "", &ft_strcmp, &void_data);
+	ft_list_remove_if(&lst, "", &ft_strcmp, &void_data);
+	ft_list_remove_if(&lst, "a", &ft_strcmp, &void_data);
+	ft_list_remove_if(&lst, "x", &ft_strcmp, &void_data);
+	ft_list_remove_if(&lst, "TEST", &ft_strcmp, &free_data);
+	ft_list_push_front(&lst, ft_strdup("TEST"));
+	ft_list_remove_if(&lst, "TEST", &ft_strcmp, &free_data);
+	if (ft_list_size(lst) == 2)
+		count++;
+	ft_list_remove_if(&lst, "9", &ft_strcmp, &void_data);
+	ft_list_remove_if(&lst, "c", &ft_strcmp, &void_data);
+	if (ft_list_size(lst) == 0)
+		count++;
+	if (count == 3)
+		printf("list_remove_if:   OK!\n");
+	else
+		printf("list_remove_if:   Error\n");
 
 	return (0);
 }
