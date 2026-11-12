@@ -10,7 +10,7 @@
 
 typedef struct s_list
 {
-	void *data;
+	char *data;
 	struct s_list *next;
 } t_list;
 
@@ -234,10 +234,29 @@ int main(int ac, char **av) {
 		printf("list_size:        Error\n");
 
 	// * LIST_SORT
+	count = 0;
+	ft_list_push_front(&lst, "9");
+	ft_list_push_front(&lst, "x");
+	ft_list_push_front(&lst, "b");
 	ft_list_sort(&lst, &ft_strcmp);
-	if (lst && *(char *)(lst->data) == 'a'
-		&& lst->next && *(char *)(lst->next->data) == 'b'
-		&& lst->next->next && *(char *)(lst->next->next->data) == 'c')
+	if (*(char *)(lst->data) == '9'
+		&& *(char *)(lst->next->data) == 'a'
+		&& *(char *)(lst->next->next->data) == 'b'
+		&& *(char *)(lst->next->next->next->data) == 'b'
+		&& *(char *)(lst->next->next->next->next->data) == 'c'
+		&& *(char *)(lst->next->next->next->next->next->data) == 'x')
+		count++;
+	ft_list_sort(NULL, &ft_strcmp);
+	t_list* lst2 = NULL;
+	ft_list_sort(&lst2, NULL);
+	ft_list_sort(&lst2, &ft_strcmp);
+	ft_list_push_front(&lst2, "");
+	ft_list_sort(&lst2, &ft_strcmp);
+	ft_list_push_front(&lst2, "TEST");
+	ft_list_sort(&lst2, &ft_strcmp);
+	if (ft_strcmp(lst2->data, lst2->next->data) <= 0)
+		count++;
+	if (count == 2)
 		printf("list_sort:        OK!\n");
 	else
 		printf("list_sort:        Error\n");

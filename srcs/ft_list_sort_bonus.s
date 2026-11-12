@@ -9,6 +9,8 @@ global ft_list_sort
 ft_list_sort:
 	test rdi, rdi
 	jz .end
+	test rsi, rsi
+	jz .end
 	mov rcx, rsi
 	mov rsi, [rdi]
 	test rsi, rsi
@@ -40,13 +42,11 @@ ft_list_sort:
 ; r10 -> t_list* previous
 ; r12 -> t_list* end
 .sort_init:
-	mov r10, rdi
-	push r12
-	mov r12, [rdx + 8]
+	xor r10, r10
 	mov r8, [rdi]
 
 .sort_next:
-	cmp r8, r12
+	cmp r8, [rdx + 8]
 	je .sort_finish
 	mov r9, [r8 + 8]
 	push rdi
@@ -64,9 +64,8 @@ ft_list_sort:
 	pop rdx
 	pop rsi
 	pop rdi
-	test eax, eax
-	jz .sort_finish
-	jl .sort_switch
+	cmp eax, eax
+	jle .sort_switch
 	mov r10, r8
 	mov r8, r9
 	jmp .sort_next
@@ -84,11 +83,9 @@ ft_list_sort:
 .sort_first:
 	mov [rdi], rdx
 	mov r10, rdx
-	jmp .sort_next
 
 .sort_finish:
 	mov rsi, rdx
-	pop r12
 	jmp .lstloop
 
 .end:
