@@ -29,6 +29,7 @@ extern void			ft_list_push_front(t_list **begin_list, void *data);
 extern unsigned int	ft_list_size(t_list *begin_list);
 extern void			ft_list_sort(t_list **begin_list, int (*cmp)());
 extern void			ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+extern void			*ft_simd_memchr(const void *s, int c, size_t n);
 
 void void_data(void *data) {
 	(void)data;
@@ -300,6 +301,32 @@ int main(int ac, char **av) {
 		printf("list_remove_if:   OK!\n");
 	else
 		printf("list_remove_if:   Error\n");
+
+	// * SIMD_MEMCHR
+	count = 0;
+	const char memchr_str[] = "o-pifosngoaqwertyjukjmn zs\bdtyjmnvghjkiuytdcghjkluytf\b";
+	if (memchr(memchr_str, '\b', 54) == ft_simd_memchr(memchr_str, '\b', 54))
+		count++;
+	if (memchr(memchr_str, '\t', 54) == ft_simd_memchr(memchr_str, '\t', 54))
+		count++;
+	if (memchr(memchr_str, '\b', 0) == ft_simd_memchr(memchr_str, '\b', 0))
+		count++;
+	if (memchr(memchr_str, 'o', 0) == ft_simd_memchr(memchr_str, 'o', 0))
+		count++;
+	if (memchr(memchr_str, 'o', 1) == ft_simd_memchr(memchr_str, 'o', 1))
+		count++;
+	if (memchr(memchr_str, 's', 15) == ft_simd_memchr(memchr_str, 's', 15))
+		count++;
+	if (memchr(memchr_str, 's', 17) == ft_simd_memchr(memchr_str, 's', 17))
+		count++;
+	if (memchr(memchr_str, '\0', 54) == ft_simd_memchr(memchr_str, '\0', 54))
+		count++;
+	if (memchr(memchr_str, '\0', 55) == ft_simd_memchr(memchr_str, '\0', 55))
+		count++;
+	if (count == 9)
+		printf("simd_memchr:      OK!\n");
+	else
+		printf("simd_memchr:      Error\n");
 
 	return (0);
 }
